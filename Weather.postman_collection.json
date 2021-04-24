@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "57c7b4c7-8417-452c-a01f-c3538ab7e332",
+		"name": "Weather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Location Search",
+			"item": [
+				{
+					"name": "Get location by title + content test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response contains ...\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"title\" && \"location_type\" && \"woeid\" && \"latt_long\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/search/?query=london",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "london"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by title + value test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Value test1\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.location_type).to.eql(\"City\");",
+									"});",
+									"pm.test(\"Value test1\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.woeid).to.eql(44418);",
+									"});",
+									"",
+									"pm.test(\"Value test3\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"City\" && \"44418\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/search/?query=london",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "london"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by title + data types test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.test(\"Test data type of the response\", () => {",
+									"  pm.expect(jsonData).to.be.an(\"object\");",
+									"  pm.expect(jsonData.title).to.be.a(\"string\");",
+									"  pm.expect(jsonData.location_type).to.be.a(\"string\");",
+									"  pm.expect(jsonData.woeid).to.be.a(\"number\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/search/?query=london",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "london"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by lattlong + response code validation test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    ",
+									"    if(pm.response.to.have.status(200)){",
+									"        console.log('200, test passed');",
+									"        postman.setNextRequest(\"Get location by title + content test\");",
+									"    }else{",
+									"        console.log('bad responce, resend request');",
+									"        postman.setNextRequest(\"Get location by lattlong\");",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/search/?lattlong=36.96,-122.02",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "lattlong",
+									"value": "36.96,-122.02"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "Get weather by location + global variable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var variable_dd_value = jsonData[0].applicable_date.split(\"-\").pop();",
+									"pm.globals.set(\"applicable_date\", variable_dd_value);",
+									"pm.test(\"Response contains ...\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\" && \"applicable_date\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/{{location}}/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"{{location}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get weather by location + global parameter set Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var variable_dd_value = jsonData[0].applicable_date.split(\"-\").pop();",
+									"pm.globals.set(\"applicable_date\", variable_dd_value);",
+									"pm.test(\"Response contains ...\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\" && \"applicable_date\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/44418/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"44418",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location Day",
+			"item": [
+				{
+					"name": "Get weather by location day + global variable set",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var dateNow= new Date();",
+									"var current_date_value = (dateNow.toISOString().split('T')[0];",
+									"postman.setGlobalVariable(\"currentDate\", dateNow.toISOString().split('T')[0]);",
+									"var variable_dd_value = jsonData[0].current_date_value.split(\"-\").pop();",
+									"postman.setGlobalVariable(\"currentDay\", variable_dd_value);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/44418/2013/4/27/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"44418",
+								"2013",
+								"4",
+								"27",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get weather by location day + value check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Value Check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(366945);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://www.metaweather.com/api/location/44418/2013/4/27/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"metaweather",
+								"com"
+							],
+							"path": [
+								"api",
+								"location",
+								"44418",
+								"2013",
+								"4",
+								"27",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
